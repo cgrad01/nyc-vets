@@ -2,10 +2,17 @@ require 'csv'
 
 class CSVWriter
 
-  def initialize
+  HEADERS = ["login", "name", "location", "repo_count"]
+
+  def initialize(headers)
+    @headers = headers
+  end
+
+  def write_headers
     CSV.open("output.csv", "wb") do |csv|
-      csv << ["login", "name", "location", "repo count"]
+      csv << HEADERS
     end
   end
+
 
 end
