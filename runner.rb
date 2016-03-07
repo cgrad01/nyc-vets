@@ -1,4 +1,8 @@
 require_relative 'github_getter'
 
 test = GithubGetter.new()
-p JSON.parse(test.search_users)
+dudes = JSON.parse(test.search_users)
+
+dudes["items"][0..10].each do |dude|
+  p dude["login"]
+end

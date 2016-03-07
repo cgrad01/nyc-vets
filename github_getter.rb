@@ -6,7 +6,7 @@ class GithubGetter
 
   BASE_URL = "https://api.github.com"
 
-  SEARCH_URL = "https://api.github.com/search/users?q=location%3A'New+York'&sort=joined&order=asc"
+  SEARCH_URL = "https://api.github.com/search/users?q=location%3A%22new+york%22&sort=joined&order=asc"
 
   def initialize (username, password, args = {})
     @username = username
