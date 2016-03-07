@@ -34,4 +34,7 @@ class GithubGetter
     @users
   end
 
+  def get_repo_count
+  end
+
 end
