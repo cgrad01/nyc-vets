@@ -4,8 +4,7 @@ class CSVWriter
 
   HEADERS = ["login", "name", "location", "repo_count"]
 
-  def initialize(headers)
-    @headers = headers
+  def initialize
   end
 
   def write_headers

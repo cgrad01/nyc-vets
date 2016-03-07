@@ -1,15 +1,16 @@
 require_relative 'github_getter'
 require_relative 'csv_writer'
+require_relative "user"
 
 test = GithubGetter.new()
 writer = CSVWriter.new
 writer.write_headers
-puts "done"
+dudes = JSON.parse(test.ny_search)["items"][0..1]
 
-# dudes = JSON.parse(test.ny_search)["items"][0..10]
+test.get_profiles(dudes).each do |user|
+  guy = User.new({login: user["login"], name: user["name"], location: user["location"]})
+  p guy
+end
 
-# test.get_profiles(dudes).each do |user|
-#   p user["login"]
-#   p user["location"]
-#   p user["public_repos"]
-# end
+# cor = User.new({login: "cgrad01", name: "Corey Grad"})
+# cor.repo_count = 25
