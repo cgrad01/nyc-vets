@@ -6,6 +6,8 @@ class GithubGetter
 
   BASE_URL = "https://api.github.com"
 
+  SEARCH_URL = "https://api.github.com/search/users?q=location%3A'New+York'&sort=joined&order=asc"
+
   def initialize (username, password, args = {})
     @username = username
     @password = password
@@ -39,6 +41,15 @@ class GithubGetter
       !(user["location"].to_s.upcase.include?(location.upcase))
     }
     @users
+  end
+
+  def search_users
+    uri = URI(SEARCH_URL)
+    req = Net::HTTP::Get.new(uri)
+    req.basic_auth @username, @password
+    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) {|http|
+      http.request(req).body
+    }
   end
 
 end
