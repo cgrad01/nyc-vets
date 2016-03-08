@@ -16,5 +16,4 @@ class CSVWriter
       end
     end
   end
-
 end

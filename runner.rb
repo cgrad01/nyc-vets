@@ -6,10 +6,10 @@ users = []
 test = GithubGetter.new()
 writer = CSVWriter.new
 dudes = JSON.parse(test.ny_search)["items"][0..9]
-
 test.get_profiles(dudes).each do |user|
   users << User.new({login: user["login"], name: user["name"], location: user["location"]})
 end
+test.get_repo_counts(users)
 
 writer.write(users)
 
