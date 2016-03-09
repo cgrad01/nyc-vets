@@ -5,7 +5,7 @@ require_relative "user"
 users = []
 test = GithubGetter.new()
 writer = CSVWriter.new
-dudes = JSON.parse(test.ny_search)["items"][0..9]
+dudes = test.ny_search(10)
 test.get_profiles(dudes).each do |user|
   users << User.new({login: user["login"], name: user["name"], location: user["location"]})
 end
