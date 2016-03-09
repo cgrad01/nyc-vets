@@ -1,6 +1,6 @@
 class User
 
-  attr_accessor :login, :name, :location, :repo_count, :repos
+  attr_accessor :login, :name, :location, :repo_count
 
   def initialize(args = {})
     @login = args[:login]
