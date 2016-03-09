@@ -10,7 +10,7 @@ class GithubGetter
   def initialize (username, password)
     @username = username
     @password = password
-    @users = []
+    @profiles = []
   end
 
   def get(url)
@@ -20,15 +20,15 @@ class GithubGetter
     res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true){|http| http.request(req).body}
   end
 
-  def ny_search(number)
-    JSON.parse(get(NY_SEARCH_URL))["items"][0..(number-1)]
+  def ny_search
+    JSON.parse(get(NY_SEARCH_URL))["items"][0..9]
   end
 
-  def get_profiles(users)
-    users.each {|user|
-      @users << JSON.parse(get(BASE_URL + "/users" + "/#{user["login"]}"))
+  def get_profiles(results)
+    results.each {|result|
+      @profiles << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
     }
-    @users
+    @profiles
   end
 
   def get_repo_counts(users)

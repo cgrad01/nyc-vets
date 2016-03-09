@@ -7,7 +7,14 @@ class User
     @name = args[:name]
     @location = args[:location]
     @repo_count = args[:repo_count]
-    @repos = []
+  end
+
+  def self.create_users(profiles)
+    output = []
+    profiles.each do |profile|
+      output << User.new({login: profile["login"], name: profile["name"], location: profile["location"]})
+    end
+    output
   end
 
 end
