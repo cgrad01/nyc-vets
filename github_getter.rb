@@ -7,17 +7,21 @@ class GithubGetter
 
   NY_SEARCH_URL = "https://api.github.com/search/users?q=location%3A%22new+york%22&sort=joined&order=asc"
 
-  def initialize (username, password)
-    @username = username
-    @password = password
+  def initialize (args = {})
+    @username = args["username"]
+    @password = args["password"]
     @profiles = []
   end
 
   def get(url)
     uri = URI(url)
     req = Net::HTTP::Get.new(uri)
-    req.basic_auth @username, @password
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true){|http| http.request(req).body}
+    if @username
+      req.basic_auth @username, @password
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true){|http| http.request(req).body}
+    else
+      res = Net::HTTP.get(uri)
+    end
   end
 
   def ny_search
