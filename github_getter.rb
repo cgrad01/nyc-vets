@@ -33,7 +33,7 @@ class GithubGetter
     results.each {|result|
       @profile_results << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
     }
-    @profile_resultss
+    @profile_results
   end
 
   def make_query_string(users)
