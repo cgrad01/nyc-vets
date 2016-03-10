@@ -3,10 +3,12 @@ require_relative 'csv_writer'
 require_relative "user"
 
 
-puts "Please input your github username and password"
-login_info = $stdin.gets.chomp.split(" ")
-getter = GithubGetter.new(login_info.first, login_info.last)
-writer = CSVWriter.new()
+puts "Please input your github username:"
+username = $stdin.gets.chomp
+puts "And password:"
+password = $stdin.gets.chomp
+getter = GithubGetter.new(username, password)
+writer = CSVWriter.new
 puts "A DEFAULT request will run as the instructions intended, a CUSTOM request will allow you to alter some of the assignment parameters"
 puts "please choose DEFAULT or CUSTOM request"
 type = $stdin.gets.chomp.upcase
