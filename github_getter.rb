@@ -11,6 +11,7 @@ class GithubGetter
     @username = args[:username]
     @password = args[:password]
     @profiles = []
+    @repos = []
   end
 
   def get(url)
@@ -35,10 +36,29 @@ class GithubGetter
     @profiles
   end
 
-  def get_repo_counts(users)
+  def make_query_string(users)
+    @query_string = ""
     users.each do |user|
-      user.repo_count = JSON.parse(get("https://api.github.com/search/repositories?q=+user:#{user.login}+created:%3E2015-01-01T00:00:00z"))["total_count"]
+      @query_string += "+user:#{user.login}"
+    end
+    @query_string
+  end
+
+  def get_repos(query_string)
+    @repos = JSON.parse(get("https://api.github.com/search/repositories?q=#{@query_string}+created:%3E2015-01-01T00:00:00z"))["items"]
+  end
+
+  def count_repos(users, repos)
+    users.each do |user|
+      assign_repos(user, repos)
     end
   end
 
+  def assign_repos(user, repos)
+    repos.each do |repo|
+      if user.login == repo["owner"]["login"]
+        user.repos << repo
+      end
+    end
+  end
 end
