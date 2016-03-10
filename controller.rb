@@ -55,13 +55,22 @@ class Controller
   def custom
     puts "Input the name of the city you would like to search:"
     location = $stdin.gets.chomp
-    puts "Pick the number of results you would like to receive (between 1 & 20):"
-    number = $stdin.gets.chomp.to_i
-    results = @getter.search(location, number)
+    results = @getter.search(location, validate_number)
     profiles = @getter.get_profiles(results)
     users = User.create_users(profiles)
     @getter.get_repo_counts(users)
     @writer.write(users)
+  end
+
+  def validate_number
+    puts "Pick the number of results you would like to receive (between 1 & 20):"
+    number = $stdin.gets.chomp.to_i
+    if number >= 1 && number <= 20
+      number
+    else
+      puts "invalid number"
+      validate_number
+    end
   end
 
 end
