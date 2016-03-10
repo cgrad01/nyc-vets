@@ -5,5 +5,5 @@ require_relative 'controller'
 
 
 controller = Controller.new
-controller.authenticate
+controller.choose_authentication
 controller.choose_parameters

@@ -1,14 +1,31 @@
-
-
 class Controller
+
+  def choose_authentication
+    puts "In order to run an authenticated github request, you must input your username and password, you can choose to run an unauthenticated request, but you will be limited in the amount of requests you can make."
+    puts "Would you like to run an authenticated request?"
+    puts "Y/N:"
+    response = $stdin.gets.chomp.upcase
+    if response = "Y"
+      authenticate
+    elsif response == "N"
+      dont_authenticate
+    else
+      puts "invalid response"
+      choose_authentication
+    end
+  end
 
   def authenticate
     puts "Please input your github username:"
     username = $stdin.gets.chomp
     puts "And password:"
     password = $stdin.gets.chomp
-    @getter = GithubGetter.new(username, password)
+    @getter = GithubGetter.new(username: username, password: password)
     @writer = CSVWriter.new
+  end
+
+  def dont_authenticate
+
   end
 
   def choose_parameters

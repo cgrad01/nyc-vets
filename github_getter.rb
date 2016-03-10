@@ -7,9 +7,9 @@ class GithubGetter
 
   NY_SEARCH_URL = "https://api.github.com/search/users?q=location%3A%22new+york%22&sort=joined&order=asc"
 
-  def initialize (username, password)
-    @username = username
-    @password = password
+  def initialize (args = {})
+    @username = args[:username]
+    @password = args[:password]
     @profiles = []
   end
 
