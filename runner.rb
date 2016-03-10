@@ -4,16 +4,16 @@ require_relative 'user'
 require_relative 'controller'
 
 
-# controller = Controller.new
-# controller.choose_authentication
-# controller.choose_parameters
+controller = Controller.new
+controller.choose_authentication
+controller.choose_parameters
 
-corey = User.new(login: "cgrad01")
-bry = User.new(login: "brynary")
-users = [corey, bry]
-getter = GithubGetter.new(username: "cgrad01", password: "ogle9hued")
-query_string = getter.make_query_string(users)
-repos = getter.get_repos(query_string)
-getter.count_repos(users, repos)
-p corey.repos.length
-p bry.repos.length
+# corey = User.new(login: "cgrad01")
+# bry = User.new(login: "brynary")
+# users = [corey, bry]
+# getter = GithubGetter.new(username: "cgrad01", password: "ogle9hued")
+# query_string = getter.make_query_string(users)
+# repos = getter.get_repos(query_string)
+# getter.count_repos(users, repos)
+# p corey
+# p bry

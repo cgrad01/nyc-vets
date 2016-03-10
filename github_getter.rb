@@ -57,8 +57,15 @@ class GithubGetter
   def assign_repos(user, repos)
     repos.each do |repo|
       if user.login == repo["owner"]["login"]
-        user.repos << repo
+        user.repos << repo["name"]
       end
     end
+    user.repo_count = user.repos.length
+  end
+
+  def get_repo_counts(users)
+    q_string = make_query_string(users)
+    get_repos(q_string)
+    count_repos(users, @repos)
   end
 end
