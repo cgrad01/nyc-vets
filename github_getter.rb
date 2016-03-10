@@ -5,8 +5,6 @@ class GithubGetter
 
   BASE_URL = "https://api.github.com"
 
-  NY_SEARCH_URL = "https://api.github.com/search/users?q=location%3A%22new+york%22&sort=joined&order=asc"
-
   def initialize (args = {})
     @username = args[:username]
     @password = args[:password]
@@ -67,5 +65,14 @@ class GithubGetter
     q_string = make_query_string(users)
     get_repos(q_string)
     count_repos(users, @repo_results)
+  end
+
+  def self.show_rate_limits
+    uri = URI("https://api.github.com/rate_limit")
+    res = Net::HTTP.get(uri)
+    core_remaining = JSON.parse(res)["resources"]["core"]["remaining"]
+    search_remaining = JSON.parse(res)["resources"]["search"]["remaining"]
+    puts ""
+    puts "You have #{core_remaining} out of 60 unauthenticated requests remaining, and #{search_remaining} out 10 unauthenticated search requests remaining. If either of these numbers reach zero, your previous search may have been incomplete."
   end
 end

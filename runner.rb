@@ -6,3 +6,4 @@ require_relative 'controller'
 controller = Controller.new
 controller.choose_authentication
 controller.choose_parameters
+GithubGetter.show_rate_limits
