@@ -5,7 +5,7 @@ class Controller
     puts "Would you like to run an authenticated request?"
     puts "Y/N:"
     response = $stdin.gets.chomp.upcase
-    if response = "Y"
+    if response == "Y"
       authenticate
     elsif response == "N"
       dont_authenticate
@@ -25,7 +25,8 @@ class Controller
   end
 
   def dont_authenticate
-
+    @getter = GithubGetter.new
+    @writer = CSVWriter.new
   end
 
   def choose_parameters

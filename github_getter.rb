@@ -16,8 +16,12 @@ class GithubGetter
   def get(url)
     uri = URI(url)
     req = Net::HTTP::Get.new(uri)
-    req.basic_auth @username, @password
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true){|http| http.request(req).body}
+    if @username && @password
+      req.basic_auth @username, @password
+      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true){|http| http.request(req).body}
+    else
+      res = Net::HTTP.get(uri)
+    end
   end
 
   def ny_search
