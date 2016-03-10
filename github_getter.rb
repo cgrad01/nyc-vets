@@ -36,9 +36,9 @@ class GithubGetter
 
   def make_query_string(users)
     @query_string = ""
-    users.each do |user|
+    users.each {|user|
       @query_string += "+user:#{user.login}"
-    end
+    }
     @query_string
   end
 
@@ -47,17 +47,17 @@ class GithubGetter
   end
 
   def count_repos(users, repos)
-    users.each do |user|
+    users.each {|user|
       assign_repos(user, repos)
-    end
+    }
   end
 
   def assign_repos(user, repos)
-    repos.each do |repo|
+    repos.each {|repo|
       if user.login == repo["owner"]["login"]
         user.repos << repo["name"]
       end
-    end
+    }
     user.repo_count = user.repos.length
   end
 
