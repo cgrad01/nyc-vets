@@ -72,5 +72,4 @@ class Controller
       validate_number
     end
   end
-
 end
