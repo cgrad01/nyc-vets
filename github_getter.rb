@@ -25,8 +25,8 @@ class GithubGetter
     end
   end
 
-  def ny_search
-    JSON.parse(get(NY_SEARCH_URL))["items"][0..9]
+  def search(location, number)
+    JSON.parse(get("https://api.github.com/search/users?q=location%3A%22#{location.gsub(/\s/,'+')}%22&sort=joined&order=asc"))["items"][0..number-1]
   end
 
   def get_profiles(results)

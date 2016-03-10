@@ -35,12 +35,17 @@ class Controller
     type = $stdin.gets.chomp.upcase
     if type == "DEFAULT"
       default
+    elsif type == "CUSTOM"
+      custom
+    else
+      puts "invalid response"
+      choose_parameters
     end
     puts "output.csv is ready"
   end
 
   def default
-    results = @getter.ny_search
+    results = @getter.search("new york", 10)
     profiles = @getter.get_profiles(results)
     users = User.create_users(profiles)
     @getter.get_repo_counts(users)
@@ -48,6 +53,24 @@ class Controller
   end
 
   def custom
+    puts "Input the name of the city you would like to search:"
+    location = $stdin.gets.chomp
+    results = @getter.search(location, validate_number)
+    profiles = @getter.get_profiles(results)
+    users = User.create_users(profiles)
+    @getter.get_repo_counts(users)
+    @writer.write(users)
+  end
+
+  def validate_number
+    puts "Pick the number of results you would like to receive (between 1 & 20):"
+    number = $stdin.gets.chomp.to_i
+    if number >= 1 && number <= 20
+      number
+    else
+      puts "invalid number"
+      validate_number
+    end
   end
 
 end
