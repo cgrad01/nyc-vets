@@ -27,11 +27,12 @@ class GithubGetter
     JSON.parse(get("https://api.github.com/search/users?q=location%3A%22#{location.gsub(/\s/,'+')}%22&sort=joined&order=asc"))["items"][0..number-1]
   end
 
+  # above returns an array, below takes and returns array
+
   def get_profiles(results)
-    results.each {|result|
-      @profile_results << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
+    results.each_with_object([]) {|result, array|
+      @profile_results = array << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
     }
-    @profile_results
   end
 
   def make_query_string(users)
