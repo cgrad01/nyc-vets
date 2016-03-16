@@ -11,11 +11,8 @@ class User
   end
 
   def self.create_users(profiles)
-    output = []
-    profiles.each do |profile|
-      output << User.new({login: profile["login"], name: profile["name"], location: profile["location"]})
+    profiles.each_with_object([]) do |profile, array|
+      array << User.new({login: profile["login"], name: profile["name"], location: profile["location"]})
     end
-    output
   end
-
 end

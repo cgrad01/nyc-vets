@@ -37,7 +37,7 @@ class GithubGetter
 
   def make_query_string(users)
     @query_string = ""
-    users.each {|user|
+    users.each_with_object("") {|user, string|
       @query_string += "+user:#{user.login}"
     }
     @query_string
