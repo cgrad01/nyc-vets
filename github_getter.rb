@@ -8,7 +8,6 @@ class GithubGetter
   def initialize (args = {})
     @username = args[:username]
     @password = args[:password]
-    @profile_results= []
     @repo_results = []
   end
 
@@ -28,18 +27,17 @@ class GithubGetter
   end
 
   def get_profiles(results)
-    results.each {|result|
-      @profile_results << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
+    results.each_with_object([]) {|result, array|
+      array << JSON.parse(get(BASE_URL + "/users" + "/#{result["login"]}"))
     }
-    @profile_results
+  end
+
+  def get_logins(users)
+    users.map(&:login)
   end
 
   def make_query_string(users)
-    @query_string = ""
-    users.each {|user|
-      @query_string += "+user:#{user.login}"
-    }
-    @query_string
+    @query_string = "+user:" + get_logins(users).join("+user:")
   end
 
   def get_repos(query_string)
