@@ -35,12 +35,17 @@ class GithubGetter
     }
   end
 
+  def get_logins(users)
+    users.map { |user| user.login }
+  end
+
   def make_query_string(users)
-    @query_string = ""
-    users.each_with_object("") {|user, string|
-      @query_string += "+user:#{user.login}"
-    }
-    @query_string
+    @query_string = "+user:" + get_logins(users).join("+user:")
+    # @query_string = ""
+    # users.each_with_object("") {|user, string|
+    #   @query_string += "+user:#{user.login}"
+    # }
+    # @query_string
   end
 
   def get_repos(query_string)
