@@ -65,7 +65,7 @@ class GithubGetter
     count_repos(users, @repo_results)
   end
 
-  def self.show_rate_limits
+  def show_rate_limits
     uri = URI("https://api.github.com/rate_limit")
     res = Net::HTTP.get(uri)
     core_remaining = JSON.parse(res)["resources"]["core"]["remaining"]

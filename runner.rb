@@ -79,4 +79,4 @@ end
 
 choose_authentication
 choose_parameters
-GithubGetter.show_rate_limits
+@getter.show_rate_limits
