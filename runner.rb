@@ -1,5 +1,5 @@
 require_relative 'github_getter'
-require_relative 'csv_writer'
+require_relative 'user_collection'
 require_relative 'user'
 # require_relative 'controller'
 
@@ -40,20 +40,20 @@ def authenticate
   puts "And password:"
   password = $stdin.gets.chomp
   @getter = GithubGetter.new(username: username, password: password)
-  @writer = CSVWriter.new
+  @collection = UserCollection.new
 end
 
 def dont_authenticate
   @getter = GithubGetter.new
-  @writer = CSVWriter.new
+  @collection = UserCollection.new
 end
 
 def default
   results = @getter.search("new york", 10)
   profiles = @getter.get_profiles(results)
-  users = User.create_users(profiles)
-  @getter.get_repo_counts(users)
-  @writer.write(users)
+  @collection.users = User.create_users(profiles)
+  @getter.get_repo_counts(@collection.users)
+  @collection.write_to_csv("output.csv")
 end
 
 def custom
@@ -61,9 +61,9 @@ def custom
   location = $stdin.gets.chomp
   results = @getter.search(location, validate_number)
   profiles = @getter.get_profiles(results)
-  users = User.create_users(profiles)
-  @getter.get_repo_counts(users)
-  @writer.write(users)
+  @collection.users = User.create_users(profiles)
+  @getter.get_repo_counts(@collection.users)
+  @collection.write_to_csv("output.csv")
 end
 
 def validate_number
