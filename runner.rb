@@ -3,10 +3,6 @@ require_relative 'csv_writer'
 require_relative 'user'
 # require_relative 'controller'
 
-
-
-# methods
-
 def choose_authentication
   puts "In order to run an authenticated github request, you must input your username and password, you can choose to run an unauthenticated request, but you will be limited in the amount of requests you can make."
   puts "Would you like to run an authenticated request?"
